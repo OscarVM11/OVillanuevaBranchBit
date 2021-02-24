@@ -1,0 +1,113 @@
+﻿@model ML.Producto
+@{
+    ViewBag.Title = "Form";
+}
+
+<script src="../../Scripts/jquery-1.10.2.js" type="text/javascript"></script>
+<script src="../../Scripts/jquery-1.10.2.min.js" type="text/javascript"></script>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 style="text-align:justify">Producto</h2><br />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>@ViewBag.Titulo</h4>
+            <hr />
+        </div>
+    </div>
+    @using (Html.BeginForm("Form", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.SKU, new { @class = "control-label" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.TextBoxFor(model => model.SKU, new { @class = "form-control", placeholder = "Ingresar el SKU" })
+                    @Html.ValidationMessageFor(model => model.SKU)
+                    @Html.HiddenFor(model=>model.Accion)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Fert, new { @class = "control-label" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.TextBoxFor(model => model.Fert, new { @class = "form-control", placeholder = "Ingresar el Fert" })
+                    @Html.ValidationMessageFor(model => model.Fert)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Modelo, new { @class = "control-label" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.TextBoxFor(model => model.Modelo, new { @class = "form-control", placeholder = "Ingresar el modelo" })
+                    @Html.ValidationMessageFor(model => model.Modelo)
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-4">
+                    @Html.LabelFor(model => model.Tipo.Nombre, new { @class = "control-label" })
+                    @if (Model.Tipo.Tipos == null)
+                    {
+                        @*model.SubCategoria.IdSubCategoria*@
+                        @Html.DropDownListFor(model => model.Tipo.IdTipo, new SelectList(string.Empty, "Value", "Text"), "Selecciona un tipo", htmlAttributes: new { id = "Tipo", @class = "form-control" })
+
+                    }
+                    else
+                    {
+
+                        @Html.DropDownListFor(model => model.Tipo.IdTipo, new SelectList(Model.Tipo.Tipos, "IdTipo", "Nombre"), "Selecciona un tipo", htmlAttributes: new { Nombre = "Tipo", @class = "form-control" })
+                    }
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.NumeroDeSerie, new { @class = "control-label" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    @Html.TextBoxFor(model => model.NumeroDeSerie, new { @class = "form-control", placeholder = "Ingresar el número de serie" })
+                    @Html.ValidationMessageFor(model => model.NumeroDeSerie)
+                </div>
+            </div>
+            @*<div class="row">
+                <div class="col-md-3">
+                    @Html.LabelFor(model => model.Fecha, new { @class = "control-label" })
+                </div>
+            </div>*@
+            @*<div class="row">
+                <div class="col-md-3">
+                    @Html.TextBoxFor(model => model.Fecha, new { @class = "form-control", placeholder = "Ingrese la fecha" })
+                    @Html.ValidationMessageFor(model => model.Fecha)
+                </div>
+            </div>*@    
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-1">
+                    <input type="submit" value="@ViewBag.Accion" class="btn btn-success" />
+                </div>
+                <div class="col-md-1">
+                    @Html.ActionLink("Regresar", "GetAll", "Producto", htmlAttributes: new { @class = "btn btn-danger" })
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+
+@Scripts.Render("~/bundles/jquery")

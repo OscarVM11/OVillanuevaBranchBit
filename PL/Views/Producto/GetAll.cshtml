@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = "Producto";
+    <!--Layout = "~/Views/Shared/_Layout.cshtml";-->
+}
+
+@model ML.Producto
+
+<h2>Producto</h2>
+
+<div class="container">
+    <div class="row" align="right">
+        <div class="col-md-12 col-md-3">
+            @Html.ActionLink("+", "Form", "Producto", htmlAttributes: new { @class = "btn btn-success" })
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm("GetAbierta", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{   
+    <div class="form-group">
+        <div class="row">
+
+            <div class="col-md-3">
+                @Html.TextBoxFor(model => model.SKU, new { @class = "form-control", placeholder = "Ingresar SKU del producto" })
+                @Html.ValidationMessageFor(model => model.SKU)
+            </div>
+
+            <div class="col-md-3">
+                @Html.TextBoxFor(model => model.Modelo, new { @class = "form-control", placeholder = "Ingresar modelo del producto" })
+                @Html.ValidationMessageFor(model => model.Modelo)
+            </div>            
+            <div class="col-md-3">
+                <input type="submit" value="Buscar" class="btn btn-info" />
+            </div>
+        </div>
+    </div>
+}
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-hover">
+            <tr>
+                <th class="text-center" scope="col">
+                    Editar
+                </th>
+                <th class="text-center" scope="col">
+                    SKU
+                </th>
+                <th class="text-center" scope="col">
+                    Fert
+                </th>
+                <th class="text-center" scope="col">
+                    Modelo
+                </th>
+                <th class="text-center" scope="col">
+                    Tipo
+                </th>
+                <th class="text-center" scope="col">
+                    Numero de Serie
+                </th>                
+                <th class="text-center" scope="col">
+                    Fecha
+                </th>
+                <th class="text-center" scope="col">
+                    Eliminar
+                </th>
+            </tr>
+            @foreach (ML.Producto producto in Model.Productos)
+            {
+                <tr>
+                    <th class="text-center">
+                        <a href="@Url.Action("Form", "Producto", producto)" title="Editar">
+                            <img style="height: 25px; width: 25px; " src="../../img/editar.png" />
+                        </a>
+                    </th>
+                    <td class="text-center">
+                        @producto.SKU
+                    </td>
+                    <td class="text-center">
+                        @producto.Fert
+                    </td>
+                    <td class="text-center">
+                        @producto.Modelo
+                    </td>
+                    <td class="text-center">
+                        @producto.Tipo.Nombre
+                    </td>                    
+                    <td class="text-center">
+                        @producto.NumeroDeSerie
+                    </td>
+                    <td class="text-center">
+                        @producto.Fecha
+                    </td>
+                    <th class="text-center">
+                        <a href="@Url.Action("Delete","Producto", new { SKU = producto.SKU })" onclick="return confirm('¿Estas seguro que deseas eliminar estos datos?');">
+                            <img style="height: 20px; width: 20px" src="../../img/borrar.png" />
+                        </a>
+                    </th>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+

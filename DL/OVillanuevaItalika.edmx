@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OVillanuevaItalikaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="SKU" />
+          </Key>
+          <Property Name="SKU" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Fert" Type="varchar" MaxLength="20" />
+          <Property Name="Modelo" Type="varchar" MaxLength="20" />
+          <Property Name="Tipo" Type="int" />
+          <Property Name="NumeroDeSerie" Type="varchar" MaxLength="20" />
+          <Property Name="Fecha" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Tipo">
+          <Key>
+            <PropertyRef Name="IdTipo" />
+          </Key>
+          <Property Name="IdTipo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <Association Name="FK__Producto__Tipo__15502E78">
+          <End Role="Tipo" Type="Self.Tipo" Multiplicity="0..1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo">
+              <PropertyRef Name="IdTipo" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="Tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetByTipo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdTipo" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ProductoAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SKU" Type="varchar" Mode="In" />
+          <Parameter Name="Fert" Type="varchar" Mode="In" />
+          <Parameter Name="Modelo" Type="varchar" Mode="In" />
+          <Parameter Name="Tipo" Type="int" Mode="In" />
+          <Parameter Name="NumeroDeSerie" Type="varchar" Mode="In" />
+          <Parameter Name="Fecha" Type="date" Mode="In" />
+        </Function>
+        <Function Name="ProductoDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SKU" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ProductoGet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ProductoGetByModelo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Modelo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ProductoGetBySKU" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SKU" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ProductoUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SKU" Type="varchar" Mode="In" />
+          <Parameter Name="Fert" Type="varchar" Mode="In" />
+          <Parameter Name="Modelo" Type="varchar" Mode="In" />
+          <Parameter Name="Tipo" Type="int" Mode="In" />
+          <Parameter Name="NumeroDeSerie" Type="varchar" Mode="In" />
+          <Parameter Name="Fecha" Type="date" Mode="In" />
+        </Function>
+        <Function Name="TipoGet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="OVillanuevaItalikaModelStoreContainer">
+          <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tipo" EntityType="Self.Tipo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Producto__Tipo__15502E78" Association="Self.FK__Producto__Tipo__15502E78">
+            <End Role="Tipo" EntitySet="Tipo" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OVillanuevaItalikaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Tipo">
+          <Key>
+            <PropertyRef Name="IdTipo" />
+          </Key>
+          <Property Name="IdTipo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Productoes" Relationship="OVillanuevaItalikaModel.FK__Producto__Tipo__15502E78" FromRole="Tipo" ToRole="Producto" />
+        </EntityType>
+        <EntityContainer Name="OVillanuevaItalikaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Tipoes" EntityType="Self.Tipo" />
+          <FunctionImport Name="ProductoAdd">
+            <Parameter Name="SKU" Mode="In" Type="String" />
+            <Parameter Name="Fert" Mode="In" Type="String" />
+            <Parameter Name="Modelo" Mode="In" Type="String" />
+            <Parameter Name="Tipo" Mode="In" Type="Int32" />
+            <Parameter Name="NumeroDeSerie" Mode="In" Type="String" />
+            <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="ProductoGet" ReturnType="Collection(OVillanuevaItalikaModel.ProductoGet_Result)" />
+          <FunctionImport Name="ProductoGetByModelo" ReturnType="Collection(OVillanuevaItalikaModel.ProductoGetByModelo_Result)">
+          <Parameter Name="Modelo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ProductoUpdate">
+            <Parameter Name="SKU" Mode="In" Type="String" />
+            <Parameter Name="Fert" Mode="In" Type="String" />
+            <Parameter Name="Modelo" Mode="In" Type="String" />
+            <Parameter Name="Tipo" Mode="In" Type="Int32" />
+            <Parameter Name="NumeroDeSerie" Mode="In" Type="String" />
+            <Parameter Name="Fecha" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="TipoGet" ReturnType="Collection(OVillanuevaItalikaModel.TipoGet_Result)" />
+          <FunctionImport Name="ProductoDelete">
+          <Parameter Name="SKU" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetByTipo" ReturnType="Collection(OVillanuevaItalikaModel.GetByTipo_Result)">
+          <Parameter Name="IdTipo" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Productoes" EntityType="OVillanuevaItalikaModel.Producto" />
+          <AssociationSet Name="FK__Producto__Tipo__15502E78" Association="OVillanuevaItalikaModel.FK__Producto__Tipo__15502E78">
+            <End Role="Tipo" EntitySet="Tipoes" />
+            <End Role="Producto" EntitySet="Productoes" />
+          </AssociationSet>
+          <FunctionImport Name="ProductoGetBySKU" ReturnType="Collection(OVillanuevaItalikaModel.ProductoGetBySKU_Result)">
+            <Parameter Name="SKU" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="ProductoGet_Result">
+          <Property Type="String" Name="SKU" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Fert" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Modelo" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="NumeroDeSerie" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="Fecha" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="ProductoGetByModelo_Result">
+          <Property Type="String" Name="SKU" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Fert" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Modelo" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="NumeroDeSerie" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="Fecha" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="TipoGet_Result">
+          <Property Type="Int32" Name="IdTipo" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="15" />
+        </ComplexType>
+        <ComplexType Name="GetByTipo_Result">
+          <Property Type="Int32" Name="IdTipo" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="15" />
+        </ComplexType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="SKU" />
+          </Key>
+          <Property Name="SKU" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Fert" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Modelo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Tipo" Type="Int32" />
+          <Property Name="NumeroDeSerie" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Tipo1" Relationship="OVillanuevaItalikaModel.FK__Producto__Tipo__15502E78" FromRole="Producto" ToRole="Tipo" />
+        </EntityType>
+        <Association Name="FK__Producto__Tipo__15502E78">
+          <End Type="OVillanuevaItalikaModel.Tipo" Role="Tipo" Multiplicity="0..1" />
+          <End Type="OVillanuevaItalikaModel.Producto" Role="Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tipo">
+              <PropertyRef Name="IdTipo" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="Tipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="ProductoGetBySKU_Result">
+          <Property Type="String" Name="SKU" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Fert" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Modelo" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="IdTipo" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="NumeroDeSerie" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="Fecha" Nullable="true" Precision="23" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OVillanuevaItalikaModelStoreContainer" CdmEntityContainer="OVillanuevaItalikaEntities">
+          <EntitySetMapping Name="Tipoes">
+            <EntityTypeMapping TypeName="OVillanuevaItalikaModel.Tipo">
+              <MappingFragment StoreEntitySet="Tipo">
+                <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ProductoAdd" FunctionName="OVillanuevaItalikaModel.Store.ProductoAdd" />
+          <FunctionImportMapping FunctionImportName="ProductoGet" FunctionName="OVillanuevaItalikaModel.Store.ProductoGet">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OVillanuevaItalikaModel.ProductoGet_Result">
+                <ScalarProperty Name="SKU" ColumnName="SKU" />
+                <ScalarProperty Name="Fert" ColumnName="Fert" />
+                <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="NumeroDeSerie" ColumnName="NumeroDeSerie" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ProductoGetByModelo" FunctionName="OVillanuevaItalikaModel.Store.ProductoGetByModelo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OVillanuevaItalikaModel.ProductoGetByModelo_Result">
+                <ScalarProperty Name="SKU" ColumnName="SKU" />
+                <ScalarProperty Name="Fert" ColumnName="Fert" />
+                <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="NumeroDeSerie" ColumnName="NumeroDeSerie" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ProductoUpdate" FunctionName="OVillanuevaItalikaModel.Store.ProductoUpdate" />
+          <FunctionImportMapping FunctionImportName="TipoGet" FunctionName="OVillanuevaItalikaModel.Store.TipoGet">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OVillanuevaItalikaModel.TipoGet_Result">
+                <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ProductoDelete" FunctionName="OVillanuevaItalikaModel.Store.ProductoDelete" />
+          <FunctionImportMapping FunctionImportName="GetByTipo" FunctionName="OVillanuevaItalikaModel.Store.GetByTipo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OVillanuevaItalikaModel.GetByTipo_Result">
+                <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Productoes">
+            <EntityTypeMapping TypeName="OVillanuevaItalikaModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="NumeroDeSerie" ColumnName="NumeroDeSerie" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+                <ScalarProperty Name="Fert" ColumnName="Fert" />
+                <ScalarProperty Name="SKU" ColumnName="SKU" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ProductoGetBySKU" FunctionName="OVillanuevaItalikaModel.Store.ProductoGetBySKU">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OVillanuevaItalikaModel.ProductoGetBySKU_Result">
+                <ScalarProperty Name="SKU" ColumnName="SKU" />
+                <ScalarProperty Name="Fert" ColumnName="Fert" />
+                <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+                <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="NumeroDeSerie" ColumnName="NumeroDeSerie" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
