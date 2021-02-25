@@ -94,6 +94,7 @@ namespace PL.Controllers
         [HttpGet]
         public ActionResult Delete(string SKU)
         {
+            //ML.Result result = BL.Producto.Delete(SKU)
             ML.Result result = BL.Producto.DeleteByAPI(SKU);
             if (result.Correct)
             {
