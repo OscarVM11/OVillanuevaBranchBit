@@ -50,6 +50,10 @@
           <Parameter Name="SKU" Type="varchar" Mode="In" />
         </Function>
         <Function Name="ProductoGet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ProductoGetBusqueda" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SKU" Type="varchar" Mode="In" />
+          <Parameter Name="Modelo" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="ProductoGetByModelo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Modelo" Type="varchar" Mode="In" />
         </Function>
@@ -120,7 +124,11 @@
             <End Role="Producto" EntitySet="Productoes" />
           </AssociationSet>
           <FunctionImport Name="ProductoGetBySKU" ReturnType="Collection(OVillanuevaItalikaModel.ProductoGetBySKU_Result)">
+          <Parameter Name="SKU" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ProductoGetBusqueda" ReturnType="Collection(OVillanuevaItalikaModel.ProductoGetBusqueda_Result)">
             <Parameter Name="SKU" Mode="In" Type="String" />
+            <Parameter Name="Modelo" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="ProductoGet_Result">
@@ -176,6 +184,14 @@
           <Property Type="String" Name="Fert" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="Modelo" Nullable="true" MaxLength="20" />
           <Property Type="Int32" Name="IdTipo" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="NumeroDeSerie" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="Fecha" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="ProductoGetBusqueda_Result">
+          <Property Type="String" Name="SKU" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Fert" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="Modelo" Nullable="true" MaxLength="20" />
           <Property Type="String" Name="Nombre" Nullable="true" MaxLength="15" />
           <Property Type="String" Name="NumeroDeSerie" Nullable="true" MaxLength="20" />
           <Property Type="DateTime" Name="Fecha" Nullable="true" Precision="23" />
@@ -256,6 +272,18 @@
                 <ScalarProperty Name="Fert" ColumnName="Fert" />
                 <ScalarProperty Name="Modelo" ColumnName="Modelo" />
                 <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="NumeroDeSerie" ColumnName="NumeroDeSerie" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ProductoGetBusqueda" FunctionName="OVillanuevaItalikaModel.Store.ProductoGetBusqueda">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="OVillanuevaItalikaModel.ProductoGetBusqueda_Result">
+                <ScalarProperty Name="SKU" ColumnName="SKU" />
+                <ScalarProperty Name="Fert" ColumnName="Fert" />
+                <ScalarProperty Name="Modelo" ColumnName="Modelo" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="NumeroDeSerie" ColumnName="NumeroDeSerie" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />

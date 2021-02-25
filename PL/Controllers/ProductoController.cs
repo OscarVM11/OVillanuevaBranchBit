@@ -108,6 +108,26 @@ namespace PL.Controllers
 
             }
             return PartialView("ValidationModal");
-        }
+        }//Delete
+
+        public ActionResult ProductoGetBusqueda(ML.Producto producto) //datos para la búsqueda abierta
+        {
+            ML.Result result = new ML.Result();
+
+            if (producto.SKU == null)
+            {
+                producto.SKU = "";
+            }
+            if (producto.Modelo == null)
+            {
+                producto.Modelo = "";
+            }
+            
+            result = BL.Producto.ProductoGetBusqueda(producto);
+
+            producto.Productos = result.Objects;
+
+            return View(producto);
+        }//GetAbierta
     }
 }

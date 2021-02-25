@@ -231,6 +231,7 @@
     <Content Include="Views\Producto\GetAll.cshtml" />
     <Content Include="Views\Producto\ValidationModal.cshtml" />
     <Content Include="Views\Producto\Form.cshtml" />
+    <Content Include="Views\Producto\ProductoGetBusqueda.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

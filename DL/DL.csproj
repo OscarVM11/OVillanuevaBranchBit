@@ -71,6 +71,9 @@
     <Compile Include="Producto.cs">
       <DependentUpon>OVillanuevaItalika.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProductoGetBusqueda_Result.cs">
+      <DependentUpon>OVillanuevaItalika.tt</DependentUpon>
+    </Compile>
     <Compile Include="ProductoGetByModelo_Result.cs">
       <DependentUpon>OVillanuevaItalika.tt</DependentUpon>
     </Compile>

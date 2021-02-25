@@ -133,5 +133,18 @@ namespace DL
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductoGetBySKU_Result>("ProductoGetBySKU", sKUParameter);
         }
+    
+        public virtual ObjectResult<ProductoGetBusqueda_Result> ProductoGetBusqueda(string sKU, string modelo)
+        {
+            var sKUParameter = sKU != null ?
+                new ObjectParameter("SKU", sKU) :
+                new ObjectParameter("SKU", typeof(string));
+    
+            var modeloParameter = modelo != null ?
+                new ObjectParameter("Modelo", modelo) :
+                new ObjectParameter("Modelo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProductoGetBusqueda_Result>("ProductoGetBusqueda", sKUParameter, modeloParameter);
+        }
     }
 }

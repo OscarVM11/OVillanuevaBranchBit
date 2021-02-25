@@ -1,38 +1,15 @@
 ﻿@{
-    ViewBag.Title = "Producto";
+    ViewBag.Title = "ProductoGetBusqueda";
     <!--Layout = "~/Views/Shared/_Layout.cshtml";-->
 }
 
 @model ML.Producto
 
-<h2>Producto</h2>
+<h2>Resultados</h2>
 
 <div class="container">
-    <div class="row" align="right">
-        <div class="col-md-12 col-md-3">
-            @Html.ActionLink("+", "Form", "Producto", htmlAttributes: new { @class = "btn btn-success" })
-        </div>
-    </div>
+    <h3>Producto</h3>    
 </div>
-@using (Html.BeginForm("ProductoGetBusqueda", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
-{   
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-3">
-                @Html.TextBoxFor(model => model.SKU, new { @class = "form-control", placeholder = "SKU" })
-                @Html.ValidationMessageFor(model => model.SKU)
-            </div>
-
-            <div class="col-md-3">
-                @Html.TextBoxFor(model => model.Modelo, new { @class = "form-control", placeholder = "MODELO" })
-                @Html.ValidationMessageFor(model => model.Modelo)
-            </div>            
-            <div class="col-md-3">
-                <input type="submit" value="Buscar" class="btn btn-info" />
-            </div>
-        </div>
-    </div>
-}
 <div class="row">
     <div class="col-md-12">
         <table class="table table-hover">
@@ -54,7 +31,7 @@
                 </th>
                 <th class="text-center" scope="col">
                     Numero de Serie
-                </th>                
+                </th>
                 <th class="text-center" scope="col">
                     Fecha
                 </th>
@@ -81,7 +58,7 @@
                     </td>
                     <td class="text-center">
                         @producto.Tipo.Nombre
-                    </td>                    
+                    </td>
                     <td class="text-center">
                         @producto.NumeroDeSerie
                     </td>
@@ -96,7 +73,9 @@
                 </tr>
             }
         </table>
+        <div class="col-md-1">
+            @Html.ActionLink("Regresar", "GetAll", "Producto", htmlAttributes: new { @class = "btn btn-danger" })
+        </div>
     </div>
 </div>
-
 

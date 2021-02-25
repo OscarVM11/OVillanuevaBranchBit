@@ -38,7 +38,7 @@ namespace BL
                             producto.Tipo = new ML.Tipo();
                             producto.Tipo.Nombre = Obj.Nombre;
                             producto.NumeroDeSerie = Obj.NumeroDeSerie;
-                            producto.Fecha = Obj.Fecha.Value;                            
+                            producto.Fecha = Obj.Fecha.Value;
 
                             result.Objects.Add(producto);
 
@@ -111,7 +111,7 @@ namespace BL
             }
 
             return result;
-            
+
         }//Add 
 
         public static ML.Result GetBySKU(string SKU)
@@ -135,7 +135,7 @@ namespace BL
                         producto.Modelo = ProductoGetBySKU.Modelo;
                         producto.Tipo = new ML.Tipo();
                         producto.Tipo.IdTipo = ProductoGetBySKU.IdTipo;
-                        producto.Tipo.Nombre = ProductoGetBySKU.Nombre;                        
+                        producto.Tipo.Nombre = ProductoGetBySKU.Nombre;
                         producto.NumeroDeSerie = ProductoGetBySKU.NumeroDeSerie;
                         producto.Fecha = ProductoGetBySKU.Fecha.Value;
 
@@ -224,7 +224,7 @@ namespace BL
 
         }//Delete
 
-        public static ML.Result GetByBusqueda(string Modelo)
+        public static ML.Result ProductoGetBusqueda(ML.Producto producto)
         {
             ML.Result result = new ML.Result();
 
@@ -233,23 +233,29 @@ namespace BL
                 using (DL.OVillanuevaItalikaEntities context = new DL.OVillanuevaItalikaEntities())
                 {
 
-                    var ProductoGetByModelo = context.ProductoGetBySKU(Modelo).FirstOrDefault();
+                    var query = context.ProductoGetBusqueda(producto.SKU, producto.Modelo).ToList();
 
-                    if (ProductoGetByModelo != null)
+                    result.Objects = new List<object>();
+
+                    if (query != null)
                     {
+                        foreach (var Obj in query)
+                        {
+                            ML.Producto item = new ML.Producto();
 
-                        ML.Producto producto = new ML.Producto();
+                            item.SKU = Obj.SKU;
+                            item.Fert = Obj.Fert;
+                            item.Modelo = Obj.Modelo;
+                            item.Tipo = new ML.Tipo();
+                            item.Tipo.Nombre = Obj.Nombre;
+                            item.NumeroDeSerie = Obj.NumeroDeSerie;
+                            item.Fecha = Obj.Fecha.Value;
 
-                        producto.SKU = ProductoGetByModelo.SKU;
-                        producto.Fert = ProductoGetByModelo.Fert;
-                        producto.Modelo = ProductoGetByModelo.Modelo;
-                        producto.Tipo = new ML.Tipo();                        
-                        producto.Tipo.Nombre = ProductoGetByModelo.Nombre;
-                        producto.NumeroDeSerie = ProductoGetByModelo.NumeroDeSerie;
-                        producto.Fecha = ProductoGetByModelo.Fecha.Value;
+                            result.Objects.Add(item);
 
-                        result.Object = producto;
+                        }
 
+                        result.Correct = true;
                     }
                     else
                     {
@@ -264,7 +270,7 @@ namespace BL
                 result.ErrorMessage = e.Message;
             }
             return result;
-        }//GetBySKU
+        }//BusquedaAbierta
 
         public static ML.Result GetAllByAPI()
         {
